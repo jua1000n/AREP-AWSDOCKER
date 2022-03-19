@@ -33,17 +33,19 @@ services:
     links:
       - db
 
-  #balance:
-  #  environment:
-   #   - PORT=8065
-    #build:
-     # context: ./balancer
-      #dockerfile: Dockerfile
-    #container_name: balance
-    #links:
-     # - backend1
-      #- backend2
-      #- backend3
+  balance:
+    environment:
+      - PORT=6001
+    build:
+      context: ./Balanceador
+      dockerfile: Dockerfile
+    container_name: balance
+    ports:
+      - "34003:6001"
+    links:
+      - backend1
+      - backend2
+      - backend3
 
   db:
     image: mongo:3.6.1
