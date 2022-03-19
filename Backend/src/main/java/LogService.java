@@ -1,7 +1,11 @@
+import mongo.ConectMongo;
+
 import static spark.Spark.*;
 
 public class LogService {
     public static void main(String... args) {
+        ConectMongo mongoDB = new ConectMongo();
+
         port(getPort());
 
         options("/*", (request, response) -> {
@@ -20,14 +24,15 @@ public class LogService {
 
         before((request, response) -> response.header("Access-Control-Allow-Origin", "*"));
 
-        get("/celsiusF", (req, res) -> {
+        get("/savecadena", (req, res) -> {
             res.type("application/json");
-            String value = req.queryParams("value");
+            String value = req.queryParams("cadena");
+            System.out.println("Esta entrando aca");
             if(value == null) {
                 return null;
             } else {
                 try{
-                    return null;
+                    return mongoDB.createConexion("AREP", value);
                 }catch (NumberFormatException e) {
                     return null;
                 }
