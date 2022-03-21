@@ -4,6 +4,7 @@ import static spark.Spark.*;
 
 public class LogService {
     public static void main(String... args) {
+
         ConectMongo mongoDB = new ConectMongo();
 
         port(getPort());

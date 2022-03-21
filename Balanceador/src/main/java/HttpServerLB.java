@@ -7,11 +7,17 @@ import java.util.Locale;
 
 public class HttpServerLB {
 
+    private static Integer port;
+    private static Integer cont = 0;
+    private static String[] name = {"backend1", "backend2", "backend3"};
+    private static Integer[] ports = {8062, 8063, 8064};
+
     public static void main(String[] args) throws IOException {
 
         ServerSocket serverSocket = null;
         try {
-            serverSocket = new ServerSocket(getPort());
+            port = getPort();
+            serverSocket = new ServerSocket(port);
         } catch (IOException e) {
             System.err.println("Could not listen on port: 35000.");
             System.exit(1);
@@ -48,7 +54,7 @@ public class HttpServerLB {
                     break;
                 }
             }
-            if (file.startsWith("/clima")) {
+            if (file.startsWith("/cadena")) {
                 outputLine = "HTTP/1.1 200 OK\r\n"
                         + "Content-Type: text/html\r\n"
                         + "\r\n"
@@ -59,21 +65,19 @@ public class HttpServerLB {
                         + "<title>Title of the document</title>\n"
                         + "</head>"
                         + "<body>"
-                        + "Clima"
-                        + "<form action=\"\">\n"
-                        + "  <label>Pais:</label>\n"
-                        + "  <input type=\"text\" name=\"name\">\n"
-                        + "</form>"
+                        + "<label>Cadena:</label>\n"
+                        + "<input name=\"name\">\n"
                         + "<button class=\"button\" onclick=\"inputValues()\">Result</button>"
                         + "<script>"
                         + "let numberc;"
                         + "let res1 = \"\";"
                         + "function inputValues() {\n" +
-                        "    const url = 'https://localhost:34003/consulta';\n" +
+                        "    const url = '';\n" +
                         "    numberc = document.getElementsByName(\"name\")[0].value;\n" +
                         "    console.log(numberc);\n" +
                         "\n" +
-                        "    const url1 = `${url}?name=${numberc}`;\n" +
+                        "    const url1 = `http://localhost:"+34003+"/consulta?cadena=${numberc}`;\n" +
+                        //"    const url1 = `http://localhost:"+port+"/consulta?cadena=${numberc}`;\n" +
                         "\n" +
                         "    getapi(url1);\n" +
                         "}"
@@ -140,7 +144,12 @@ public class HttpServerLB {
         String res = "{}";
         URL url = null;
         try {
-            url = new URL("http://backend2:8063/savecadena?cadena="+ ciudad);
+            url = new URL("http://"+name[cont]+":"+ports[cont]+"/savecadena?cadena="+ ciudad);
+            if(cont == 2) {
+                cont = 0;
+            }else {
+                cont++;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }

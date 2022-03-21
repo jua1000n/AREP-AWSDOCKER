@@ -3,13 +3,11 @@ version: '3'
 services:
   backend1:
     environment:
-      - PORT=6000
+      - PORT=8062
     build:
       context: ./Backend
       dockerfile: Dockerfile
     container_name: back1
-    ports:
-      - "34002:6000"
     links:
       - db
 
