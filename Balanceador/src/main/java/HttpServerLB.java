@@ -76,8 +76,8 @@ public class HttpServerLB {
                         "    numberc = document.getElementsByName(\"name\")[0].value;\n" +
                         "    console.log(numberc);\n" +
                         "\n" +
-                        "    const url1 = `http://localhost:"+34003+"/consulta?cadena=${numberc}`;\n" +
-                        //"    const url1 = `http://localhost:"+port+"/consulta?cadena=${numberc}`;\n" +
+                        //"    const url1 = `http://localhost:"+34003+"/consulta?cadena=${numberc}`;\n" +
+                        "    const url1 = `http://ec2-100-25-213-230.compute-1.amazonaws.com:"+34003+"/consulta?cadena=${numberc}`;\n" +
                         "\n" +
                         "    getapi(url1);\n" +
                         "}"
@@ -99,11 +99,15 @@ public class HttpServerLB {
                         + "</html>";
 
             }else if(file.startsWith("/consulta")) {
+                String res = "";
+                try {
+                    String nameC = file.toLowerCase(Locale.ROOT).split("=")[1];
+                    res = getJSONClima(nameC);
+                    System.out.println(res);
+                    System.out.println(nameC + " sssssss");
+                }catch (Exception e){
 
-                String nameC = file.toLowerCase(Locale.ROOT).split("=")[1];
-                String res = getJSONClima(nameC);
-                System.out.println(res);
-                System.out.println(nameC + " sssssss");
+                }
 
                 outputLine = "HTTP/1.1 200 OK\r\n"
                         + "Content-Type: application/json\r\n"
