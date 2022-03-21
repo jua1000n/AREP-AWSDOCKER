@@ -1,2 +1,4 @@
 *.iml
 .diea/*
+Backend/.diea/*
+Balanceador/.idea/*
