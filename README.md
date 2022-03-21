@@ -53,7 +53,7 @@ docker-compose up -d
 ```
 El cual se encargara de generar la imagenes y desplegar el proyecto.
 
-##Links
+## Links
 ### Local
 ```
 localhost:34003/cadena
@@ -67,10 +67,13 @@ http://ec2-100-25-213-230.compute-1.amazonaws.com:34003/cadena
 ## Despliegue AWS 
 Debido a que en el local usamos **docker-compose** lo que hace es como si generar un solo contenedor para todo y de esta forma no es necesario direccionar puertos para cada uno de ellos, solo para uno que es el del front que es único que si necesita ser mapeado, con los nombres que se le asigna no hace falta tampoco especificar una url solo se necesita el nombre. Lo que se hace usualmente es hacer un docker push a las imágenes, estas se suben de forma independiente, y al momento de descargarlas en AWS se estarían generando 5 contenedores, y en este caso toca especificar cada uno de los puertos para poder consultar, debido a que nosotros no lo configuramos desde un principio de esta forma la forma más fácil es subir directamente toda la carpeta del proyecto al servidor de AWS, de esta forma ya dentro que hace un docker-compose para que se genere igual que lo teníamos en forma local.
 
+![](img/docker-compose.jpg)
 
 Como podemos ver en las imagenes anteriores se an insertado 4 cadenas, para comprobar que el Round Robin si validamos en la imagen se ve claramente que a entrado cuatro veces de forma reaprtida para hacer que sea menos estresante para los servidores.
-
-Podemos comprpbar en la anteiror imagen las imagenes y los contenedores.
+![](img/AWS1.jpg)
+![](img/AWS2.jpg)
+Podemos comprobar las imagenes y los contenedores.
+![](img/AWS3.jpg)
 
 ## Auhtor
 Juan Sebastian Cadavid
